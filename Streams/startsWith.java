@@ -41,3 +41,37 @@ class Main {
                 .forEach(System.out::println);
     }
 }
+
+***********************************************USER INPUT*******************************************************
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Main 
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        List<String> names = Arrays.asList(
+            "apple",
+            "amla",
+            "orange",
+            "mango"
+        );
+
+        // Take character input from user
+        System.out.print("Enter starting character: ");
+        char ch = sc.next().charAt(0);
+
+        // Find words starting with the given character
+        List<String> ans = names.stream()
+            .filter(name -> name.startsWith(String.valueOf(ch)))
+            .collect(Collectors.toList());
+
+        // Print result
+        ans.forEach(System.out::println);
+
+        sc.close();
+    }
+}
