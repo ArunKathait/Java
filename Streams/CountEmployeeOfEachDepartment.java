@@ -1,4 +1,4 @@
-
+**************************************************DEPARTMENT + EMPLOYEE*************************************************
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,6 +47,67 @@ class Main {
         // count      = map value
         mp.forEach((department, count) ->
             System.out.println(department + " : " + count)
+        );
+    }
+}
+
+********************************************IF WE WANT DEPARTMENT AND THEIR COUNT**************************************
+
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Employee {
+    int id;
+    String name;
+    String department;
+
+    // Constructor: initializes each employee's details
+    Employee(int id, String name, String department) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+    }
+
+    // Returns the department of the current employee
+    public String getDepartment() {
+        return department;
+    }
+
+    // Returns the employee's name when the object is printed
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+
+        // Create a list containing five Employee objects
+        List<Employee> list = Arrays.asList(
+            new Employee(1, "Arun", "SDE"),
+            new Employee(2, "Rahul", "IT"),
+            new Employee(3, "Arushi", "Law"),
+            new Employee(4, "Preeti", "IT"),
+            new Employee(5, "Anusha", "SDE")
+        );
+
+        // Convert the list into a Stream and group employees by department.
+        // groupingBy() creates a group for each distinct department.
+        // counting() counts the employees belonging to each group.
+        // Result: department -> number of employees.
+        Map<String, Long> mp = list.stream()
+            .collect(Collectors.groupingBy(
+                e -> e.getDepartment(),  // Grouping key
+                Collectors.counting()    // Count employees in each group
+            ));
+
+        // Iterate through the resulting map.
+        // department represents the key.
+        // count represents the number of employees in that department.
+        mp.forEach((department, count) ->
+            System.out.println(department + ": " + count)
         );
     }
 }
