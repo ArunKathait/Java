@@ -1,4 +1,4 @@
-**************************************************DEPARTMENT + EMPLOYEE*************************************************
+**************************************************DEPARTMENT + EMPLOYEE NAME********************************************
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -7,18 +7,25 @@ class Employee {
     String name;
     String department;
 
-    // Constructor: initializes the employee's details.
+    // Constructor: initializes employee details when an Employee object is created.
     Employee(int id, String name, String department) {
         this.id = id;
         this.name = name;
         this.department = department;
+    }
+
+    // Override toString() so printing an Employee object returns its name.
+    // For example, instead of Employee@1a2b3c, it prints "Arun".
+    @Override
+    public String toString() {
+        return name;
     }
 }
 
 class Main {
     public static void main(String[] args) {
 
-        // Step 1: Create a list of employees.
+        // Step 1: Create a list containing Employee objects.
         List<Employee> list = Arrays.asList(
             new Employee(1, "Arun", "IT"),
             new Employee(2, "Rahul", "HR"),
@@ -27,31 +34,35 @@ class Main {
             new Employee(5, "Kathait", "IT")
         );
 
-        // Step 2: Group employees by department and count them.
-        // list.stream() creates a stream of Employee objects.
-        Map<String, Long> mp = list.stream()
+        // Step 2: Convert the list into a Stream to process employees.
+        // groupingBy() groups employees based on the department field.
+        //
+        // e -> e.department means:
+        // Take each Employee object (e) and use its department as the key.
+        //
+        // Employees with the same department are collected into one List.
+        // The result is a Map where:
+        // Key   = Department name (String)
+        // Value = List of Employee objects belonging to that department.
+        Map<String, List<Employee>> mp = list.stream()
             .collect(Collectors.groupingBy(
-
-                // First argument:
-                // Select the department as the grouping key.
-                // Employees with the same department go into the same group.
-                e -> e.department,
-
-                // Second argument:
-                // Count the number of employees in each group.
-                Collectors.counting()
+                e -> e.department
             ));
 
-        // Step 3: Print each department and its employee count.
-        // department = map key
-        // count      = map value
-        mp.forEach((department, count) ->
-            System.out.println(department + " : " + count)
+        // Step 3: Iterate through each entry in the Map.
+        // department represents the key, such as "IT" or "HR".
+        // employees represents the List<Employee> for that department.
+        mp.forEach((department, employees) ->
+
+            // Print the department and its employees.
+            // Java prints the list using each Employee's toString() method.
+            // Since toString() returns the name, only employee names appear.
+            System.out.println(department + " : " + employees)
         );
     }
 }
 
-********************************************IF WE WANT DEPARTMENT AND THEIR COUNT**************************************
+********************************************IF WE WANT DEPARTMENT AND THEIR EMPLOYEE COUNT***************************
 
 
 import java.util.*;
