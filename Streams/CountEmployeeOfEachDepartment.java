@@ -111,3 +111,82 @@ class Main {
         );
     }
 }
+
+********************************************MAX SALARY IN EACH DEPARTMENT**********************************************
+
+    
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Employee {
+    int id;
+    String name;
+    String department;
+    double salary;
+
+    // Constructor to initialize employee details
+    Employee(int id, String name, String department, double salary) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+    }
+
+    // Getter to return employee salary
+    public double getSalary() {
+        return salary;
+    }
+
+    // Getter to return employee department
+    public String getDepartment() {
+        return department;
+    }
+
+    // Getter to return employee name
+    public String getName() {
+        return name;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+
+        // Create a list of employees with their department and salary
+        List<Employee> list = Arrays.asList(
+            new Employee(1, "Arun", "SDE", 150000),
+            new Employee(2, "Rahul", "IT", 50000),
+            new Employee(3, "Nikhil", "HR", 40000),
+            new Employee(4, "Akash", "SDE", 70000),
+            new Employee(5, "Preeti", "HR", 60000)
+        );
+
+        // Convert the employee list into a Stream
+        // Group employees according to their department
+        // Within each department, find the employee with maximum salary
+        Map<String, Optional<Employee>> mp = list.stream()
+            .collect(Collectors.groupingBy(
+                e -> e.getDepartment(), // Department is the grouping key
+
+                // Find the employee with the highest salary in each group
+                Collectors.maxBy(
+                    Comparator.comparingDouble(e -> e.getSalary())
+                )
+            ));
+
+        // Iterate over the map entries
+        // department = department name
+        // employee = Optional containing the highest-paid employee
+        mp.forEach((department, employee) -> {
+
+            // If an employee exists, retrieve the Employee object
+            employee.ifPresent(e ->
+
+                // Print department, employee name, and salary
+                System.out.println(
+                    department + " : " + e.getName()
+                    + " : " + e.getSalary()
+                )
+            );
+        });
+    }
+}
