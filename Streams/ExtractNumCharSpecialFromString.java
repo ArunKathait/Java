@@ -64,3 +64,44 @@ public class Main {
         System.out.println("Specials : " + specials);
     }
 }
+
+**************************************************SMALL CHANGE*********************************************************
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Main {
+    public static void main(String args[]) {
+
+        // Input string containing letters, digits, spaces, and special characters
+        String str = "abcd1234 & * % !";
+
+        // Extract all digits from the string
+        String digits = str.chars() // Convert string into an IntStream of character values
+            .mapToObj(c -> (char) c) // Convert each integer value into a Character object
+            .filter(Character::isDigit) // Keep only digits (0-9)
+            .map(String::valueOf) // Convert each Character into a String
+            .collect(Collectors.joining()); // Join all digits into one String
+
+        // Extract all letters from the string
+        String letters = str.chars()
+            .mapToObj(c -> (char) c) // Convert integer values into Character objects
+            .filter(Character::isLetter) // Keep only alphabetic characters
+            .map(String::valueOf) // Convert each Character into a String
+            .collect(Collectors.joining()); // Join all letters into one String
+
+        // Extract special characters, excluding whitespace
+        String special = str.chars()
+            .mapToObj(c -> (char) c) // Convert integer values into Character objects
+            .filter(c -> !Character.isLetter(c) // Exclude letters
+                      && !Character.isDigit(c) // Exclude digits
+                      && !Character.isWhitespace(c)) // Exclude spaces and whitespace
+            .map(String::valueOf) // Convert each Character into a String
+            .collect(Collectors.joining()); // Join special characters into one String
+
+        // Print the results
+        System.out.println("Digits : " + digits);
+        System.out.println("Letters : " + letters);
+        System.out.println("Special : " + special);
+    }
+}
