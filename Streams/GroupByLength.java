@@ -29,3 +29,25 @@ class Main {
         });
     }
 }
+
+/*
+
+┌─────────────────────────────────────┐
+│       Collectors.groupingBy()       │
+├─────────────────────────────────────┤
+│ Purpose: Group elements by a key    │
+│                                     │
+│ stream()     → Process the list     │
+│ groupingBy() → Create groups        │
+│ x.length()   → Grouping condition   │
+│ collect()    → Store result in Map  │
+│ forEach()    → Iterate over Map     │
+│                                     │
+│Return Type: Map<Integer, List<String>>
+│ Time Complexity: O(n)               │
+│                                     │
+│ Key   = Name length                 │
+│ Value = List of matching names      │
+└─────────────────────────────────────┘
+
+*/
